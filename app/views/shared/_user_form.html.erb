@@ -1,0 +1,14 @@
+<% action = login ? session_path : users_path %>
+<% submit = login ? 'Login' : 'Create Account' %>
+
+<form action='<%= action %>' method='POST'>
+  <%= auth_token %>
+
+  <label for='username'>Username: </label>
+  <input id='username' type='text' name='user[username]' value='<%= @user.username %>'>
+
+  <label for='password'>Password: </label>
+  <input id='password' type='password' name='user[password]'>
+
+  <input id='submit-form' type='submit' value='<%= submit %>'>
+</form>
