@@ -101,3 +101,7 @@ def create_user(username, password)
   fill_in 'password', with: password
   click_on 'Create Account'
 end
+
+def login(user)
+  allow_any_instance_of(ApplicationController).to receive(:current_user) { user }
+end

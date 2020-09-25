@@ -1,5 +1,5 @@
 class GoalsController < ApplicationController
-  before_action :require_current_user, except: [:index]
+  before_action :require_current_user, except: [:index, :show]
   before_action :must_belong_to_user, only: [:update, :edit, :destroy]
 
   def new
@@ -33,6 +33,20 @@ class GoalsController < ApplicationController
     end
   end
 
+  def show
+    @goal = Goal.find_by(id: params[:id])
+    if @goal.secret && @goal.user_id != current_user.try(:id)
+      redirect_to root_url
+    else
+      render :show
+    end
+  end
+
+  def index
+    @goals = Goal.where(secret: false)
+    render :index
+  end
+
   def destroy
     # @goal found in before_action
     @goal.destroy
@@ -47,6 +61,6 @@ class GoalsController < ApplicationController
   end
 
   def goal_params
-    params.require(:goal).permit(:title, :completed)
+    params.require(:goal).permit(:title, :completed, :secret)
   end
 end

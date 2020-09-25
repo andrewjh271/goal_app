@@ -1,0 +1,4 @@
+<h3><%= @goal.title %>  <%= '&#10003;' if @goal.completed  %> — <%= @goal.user.username %></h3>
+
+<%= link_to 'Update Goal', edit_goal_path(@goal.id) %>
+<%= link_to 'Delete Goal', goal_path(@goal.id), method: :delete %>

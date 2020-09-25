@@ -6,11 +6,25 @@
   <%= patch if edit %>
 
   <label for='title'>Title: </label>
-  <input type='text' name='goal[title]' value='<%= goal.title %>'>
+  <input type='text' id='title' name='goal[title]' value='<%= goal.title %>'>
   <br>
 
-  <input type='checkbox' id='completed' name='Completed?' value='true'>
-  <label for='completed'>Completed?</label>
+  <input
+    type='checkbox'
+    id='completed'
+    name='goal[completed]'
+    value='true'
+    <%= 'checked' if goal.completed %>>
+  <label for='completed'>Completed</label>
+  <br>
+
+  <input
+    type='checkbox'
+    id='secret'
+    name='goal[secret]'
+    value='true'
+    <%= 'checked' if goal.secret %>>
+  <label for='secret'>Private</label>
   <br>
 
   <input type='submit' value='<%= submit %>'>
