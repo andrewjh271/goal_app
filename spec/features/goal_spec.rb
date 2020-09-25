@@ -84,7 +84,7 @@ feature 'creating a new goal' do
       login(user)
       visit goal_url(goal)
       expect(page).not_to have_content goal.title
-      expect(page).to have_content 'Welcome to your special account page'
+      expect(page).to have_content 'Welcome!'
     end
   end
 

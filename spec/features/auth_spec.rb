@@ -36,6 +36,6 @@ feature 'logging out' do
 
   scenario 'doesn\'t show username on the homepage after logout' do
     click_on 'Logout'
-    expect(page).not_to have_content 'cheetah'
+    expect(page).not_to have_content 'Goals:'
   end
 end

@@ -1,0 +1,5 @@
+<%= goal_comment.body %>
+—<%= goal_comment.author.username %>
+<% if goal_comment.author_id == current_user.id %>
+  <%= button_to 'Delete Comment', goal_comment_path(goal_comment), method: :delete %>
+<% end %>

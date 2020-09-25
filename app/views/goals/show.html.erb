@@ -1,4 +1,11 @@
-<h3><%= @goal.title %>  <%= '&#10003;' if @goal.completed  %> — <%= @goal.user.username %></h3>
+<h3><%= @goal.title %>  <%= '&#10003;'.html_safe if @goal.completed  %> — <%= @goal.user.username %></h3>
 
 <%= link_to 'Update Goal', edit_goal_path(@goal.id) %>
 <%= link_to 'Delete Goal', goal_path(@goal.id), method: :delete %>
+
+<p>Comments:</p>
+<% @goal.goal_comments.each do |goal_comment| %>
+  <li><%= render goal_comment %></li>
+<% end %>
+
+<%= render 'comments/form', user_comment: false, subject_id: @goal.id %>

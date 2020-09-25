@@ -32,7 +32,7 @@ RSpec.describe UsersController, type: :controller do
     context 'with valid params' do
       it 'redirects user to show page on success' do
         post :create, params: { user: { username: 'jen', password: '123456'} }
-        expect(response).to redirect_to(user_url)
+        expect(response).to redirect_to(user_url(User.find_by(username: 'jen')))
       end
     end
   end
@@ -40,7 +40,7 @@ RSpec.describe UsersController, type: :controller do
   describe 'GET #show' do
     it 'renders the show template' do
       user = User.create!(username: 'parrot', password: 'jungle')
-      get :show, session: { session_token: user.session_token }
+      get :show, params: { id: user.id }
       expect(response).to render_template(:show)
     end
   end

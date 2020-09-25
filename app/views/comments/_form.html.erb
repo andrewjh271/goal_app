@@ -1,0 +1,18 @@
+<% action = user_comment ? user_comments_path : goal_comments_path %>
+<% subject = user_comment ? 'user_comment[user_id]' : 'goal_comment[goal_id]' %>
+<% body = user_comment ? 'user_comment[body]' : 'goal_comment[body]' %>
+
+<div class='form-item'>
+  <form action='<%= action %>', method='POST'>
+    <%= auth_token %>
+
+    <input type='hidden' name='<%= subject %>', value='<%= subject_id %>'>
+
+    <label for='body'>Add a comment: </label>
+    <textarea id='body' name='<%= body %>'></textarea>
+    <br>
+
+    <input type='submit' value='Post Comment'>
+  </form>
+</div>
+<br>

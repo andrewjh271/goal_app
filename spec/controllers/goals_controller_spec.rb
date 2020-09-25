@@ -30,7 +30,7 @@ RSpec.describe GoalsController, type: :controller do
       it 'redirects to user show page on success' do
         login_user(@user)
         post :create, params: { goal: { title: 'Eat a raspberry' } }
-        expect(response).to redirect_to(user_url)
+        expect(response).to redirect_to(user_url(@user.id))
       end
     end
   end
@@ -65,7 +65,7 @@ RSpec.describe GoalsController, type: :controller do
       it 'redirects to user show page on success' do
         login_user(@user)
         post :update, params: { goal: { title: 'Eat a raspberry' }, id: @goal.id }
-        expect(response).to redirect_to(user_url)
+        expect(response).to redirect_to(user_url(@user.id))
       end
     end
   end

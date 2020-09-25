@@ -1,11 +1,25 @@
 <h3><%= @user.username %></h3>
 
-<p>Hello. Welcome to your special account page.</p>
+<% if @user == current_user %>
+
+  <p>Hello. Welcome to your special account page.</p>
+<% end %>
 <p>Goals:</p>
 
 <ul>
-<%= render current_user.goals %> 
+  <% if @user == current_user %>
+    <%= render @user.goals %>
+  <% else %>
+    <%= render @user.goals.where(secret: false) %>
+  <% end %>
 </ul>
 
 <%= link_to 'Create a new goal', new_goal_path %>
 <br>
+
+<p>Comments:</p>
+<% @user.user_comments.each do |user_comment| %>
+  <li><%= render user_comment %></li>
+<% end %>
+
+<%= render 'comments/form', user_comment: true, subject_id: @user.id %>
