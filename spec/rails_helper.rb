@@ -70,3 +70,12 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+# def create_and_login_user
+#   user = User.create!(username: 'cheetah', password: 'jungle')
+#   session[:session_token] = user.session_token
+# end
+
+def login_user(user)
+  session[:session_token] = user.session_token
+end
