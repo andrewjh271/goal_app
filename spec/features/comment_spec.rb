@@ -30,7 +30,7 @@ feature 'user comments' do
 
   feature 'deleting a comment on a user' do
     scenario 'user can delete comments on their page' do
-      comment = FactoryBot.create(:user_comment, user: @user)
+      comment = FactoryBot.create(:comment, subject: @user)
       login(@user)
       visit user_url(@user.id)
       expect(page).to have_content comment.body
@@ -39,9 +39,9 @@ feature 'user comments' do
     end
 
     scenario 'author can delete their comments' do
-      comment = FactoryBot.create(:user_comment, author: @user)
-      login(comment.user)
-      visit user_url(comment.user)
+      comment = FactoryBot.create(:comment, author: @user)
+      login(comment.subject)
+      visit user_url(comment.subject)
       expect(page).to have_content comment.body
       click_on 'Delete Comment'
       expect(page).not_to have_content comment.body
@@ -78,7 +78,7 @@ feature 'goal comments' do
 
   feature 'deleting a comment on a user' do
     scenario 'creator of goal can delete its comments' do
-      comment = FactoryBot.create(:goal_comment, goal: @goal)
+      comment = FactoryBot.create(:comment, subject: @goal)
       login(comment.author)
       visit goal_url(@goal)
       expect(page).to have_content comment.body
@@ -87,18 +87,18 @@ feature 'goal comments' do
     end
 
     scenario 'author of comment can delete it' do
-      comment = FactoryBot.create(:goal_comment, author: @user)
+      comment = FactoryBot.create(:comment, subject: @goal, author: @user)
       login(@user)
-      visit goal_url(comment.goal)
+      visit goal_url(@goal)
       expect(page).to have_content comment.body
       click_on 'Delete Comment'
       expect(page).not_to have_content comment.body
     end
 
     scenario 'random user cannot delete comment' do
-      comment = FactoryBot.create(:goal_comment)
+      comment = FactoryBot.create(:comment, subject: @goal)
       login(@user)
-      visit goal_url(comment.goal)
+      visit goal_url(@goal)
       expect(page).not_to have_button 'Delete Comment'
     end
   end

@@ -1,0 +1,6 @@
+<%= comment.body %>
+—<%= comment.author.username %>
+<% if comment.author_id == current_user.id ||
+      comment.subject_type == 'User' && comment.subject_id == current_user.id %>
+  <%= button_to 'Delete Comment', comment_path(comment), method: :delete %>
+<% end %>

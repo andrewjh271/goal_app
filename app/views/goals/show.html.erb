@@ -4,8 +4,8 @@
 <%= link_to 'Delete Goal', goal_path(@goal.id), method: :delete %>
 
 <p>Comments:</p>
-<% @goal.goal_comments.each do |goal_comment| %>
-  <li><%= render goal_comment %></li>
+<% @goal.comments.each do |comment| %>
+  <li><%= render comment %></li>
 <% end %>
 
-<%= render 'comments/form', user_comment: false, subject_id: @goal.id %>
+<%= render 'comments/form', subject_id: @goal.id, subject_type: 'Goal' %>

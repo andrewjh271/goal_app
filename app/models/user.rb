@@ -20,7 +20,7 @@ class User < ApplicationRecord
   after_initialize :ensure_session_token
 
   has_many :goals, dependent: :destroy
-  has_many :user_comments
+  has_many :comments, as: :subject
 
   def password=(password)
     @password = password

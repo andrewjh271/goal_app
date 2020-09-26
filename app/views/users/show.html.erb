@@ -14,12 +14,14 @@
   <% end %>
 </ul>
 
-<%= link_to 'Create a new goal', new_goal_path %>
-<br>
-
-<p>Comments:</p>
-<% @user.user_comments.each do |user_comment| %>
-  <li><%= render user_comment %></li>
+<% if @user == current_user %>
+  <%= link_to 'Create a new goal', new_goal_path %>
+  <br>
 <% end %>
 
-<%= render 'comments/form', user_comment: true, subject_id: @user.id %>
+<p>Comments:</p>
+<% @user.comments.each do |comment| %>
+  <li><%= render comment %></li>
+<% end %>
+
+<%= render 'comments/form', subject_id: @user.id, subject_type: 'User' %>
