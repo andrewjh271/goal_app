@@ -10,6 +10,8 @@
 #  updated_at      :datetime         not null
 #
 class User < ApplicationRecord
+  include Subject
+
   attr_reader :password
 
   validates :username, :session_token, presence: true
@@ -20,7 +22,8 @@ class User < ApplicationRecord
   after_initialize :ensure_session_token
 
   has_many :goals, dependent: :destroy
-  has_many :comments, as: :subject
+  # has_many :comments, as: :subject
+  # moved to Subject concern
 
   def password=(password)
     @password = password

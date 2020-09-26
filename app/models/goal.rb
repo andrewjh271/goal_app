@@ -11,6 +11,8 @@
 #  secret     :boolean          default(FALSE), not null
 #
 class Goal < ApplicationRecord
+  include Subject
+
   attribute :completed, :boolean, default: false
   attribute :secret, :boolean, default: false
 
@@ -19,5 +21,6 @@ class Goal < ApplicationRecord
   validates :completed, inclusion: { in: [true, false] }
 
   belongs_to :user
-  has_many :comments, as: :subject
+  # has_many :comments, as: :subject
+  # moved to Subject concern
 end
