@@ -9,6 +9,7 @@
   <input type='text' id='title' name='goal[title]' value='<%= goal.title %>'>
   <br>
 
+  <input type='hidden', name='goal[completed]', value='false'>
   <input
     type='checkbox'
     id='completed'
@@ -18,6 +19,7 @@
   <label for='completed'>Completed</label>
   <br>
 
+  <input type='hidden', name='goal[secret]', value='false'>  
   <input
     type='checkbox'
     id='secret'
