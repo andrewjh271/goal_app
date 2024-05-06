@@ -35,4 +35,45 @@ RSpec.describe User, type: :model do
     it { should have_many(:goals) }
   end
 
+  describe 'class methods' do
+    describe '::find_by_credentials' do
+      subject(:user) { FactoryBot.create(:user) }
+
+      it 'should find the user with matching credentials' do
+        expect(User.find_by_credentials(user.username, user.password)).to eq(user)
+      end
+
+      it 'should return nil if  no matching credentials exist' do
+        expect(User.find_by_credentials(user.username, 'password')).to be_nil
+      end
+
+    end
+  end
+
+  describe 'instance methods' do
+    subject(:user) { FactoryBot.build(:user) }
+    
+    describe '#is_password?' do
+      it 'returns true if argument is correct password' do
+        user.password = 'password'
+        expect(user.is_password?('password')).to be(true)
+      end
+
+      it 'returns false if argument is incorrect password' do
+        expect(user.is_password?('very_unlikely')).to be(false)
+      end
+    end
+
+    describe '#reset_session_token!' do
+      it 'resets session token for a user' do
+        old_token = user.session_token
+        user.reset_session_token!
+        expect(user.session_token).not_to eq(old_token)
+      end
+
+      it 'returns new session token' do
+        expect(user.reset_session_token!).to eq(user.session_token)
+      end
+    end
+  end
 end
