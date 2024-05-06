@@ -72,6 +72,21 @@ RSpec.describe GoalsController, type: :controller do
     end
   end
 
+  describe 'GET #show' do
+    it 'shows a goal' do
+      get :show, params: { id: goal.id }
+      expect(response).to render_template(:show)
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'doesn\'t show a secret goal to anyone but owner' do
+      secret_goal = FactoryBot.create(:goal, secret: true)
+      get :show, params: { id: secret_goal.id }
+      expect(response).to redirect_to(:root)
+      expect(response).to have_http_status(:redirect)
+    end
+  end
+
   describe 'DELETE #destroy' do
     # before(:each) { @goal = FactoryBot.create(:goal, user_id: @user.id) }
 
@@ -81,6 +96,13 @@ RSpec.describe GoalsController, type: :controller do
       expect(response).to redirect_to(user_url)
       expect(Goal.find_by(id: goal.id)).to be nil
     end
-  end
 
+    it 'can\'t delete a goal that doesn\'t belong to current user' do
+      login_user(user)
+      other_goal = FactoryBot.create(:goal)
+      delete :destroy, params: { id: other_goal.id }
+      expect(response).to redirect_to(:root)
+      expect(Goal.find_by(id: other_goal.id)).to_not be_nil
+    end
+  end
 end
